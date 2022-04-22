@@ -1,21 +1,29 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+}
 
-group 'Java-exe-jar'
-version ''
+group 'org.example'
+version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile group: 'org.graalvm.sdk', name: 'graal-sdk', version: '19.1.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
-jar{
-    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
-    manifest{
-        attributes 'Main-Class':'Main'
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.example.Main'
+        )
     }
 }
